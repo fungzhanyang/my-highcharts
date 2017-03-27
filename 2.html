@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
+    <title></title>
+        <script src="js/jquery.js"></script>
+        <script type="text/javascript" src="js/highcharts.js" charset="UTF-8"></script>
+    <style type="text/css">
+        *{margin:0;padding:0;border:0;font-size:17px;}
+        a{
+            text-decoration: none;
+            color: black;
+        }
+        #container{
+            margin: 10px;
+            height: 800px;
+            width: 320px;
+        }
+        .wenBen{
+            background-color: green;
+            font-family: "Microsoft Yahei";
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+<div id="container"></div>
+<!--<div id="pie"></div>-->
+</body>
+<script type="text/javascript">
+    $('#container').css({ "width": $(window).width()-20, "height": $(window).height() });
+
+    //alert(8888);
+    var aa = [];
+    var XX = [];
+    var bb = [];
+    var name = [];
+    function getX(){
+        for(var i =1;i<=24;i++){
+            XX.push(i);
+        }
+        return XX;
+    }
+    function getName(){
+        for(var i =1;i<=24;i++){
+            //var oo = 'name'+i;
+            name[i-1] = 'name'+i;
+        }
+        return name;
+    }
+    function getY(){
+        for(var i =1;i<=24;i++){
+            aa.push(parseInt(i*Math.random(i)*10));
+        }
+        return aa;
+    }
+    function getZ(){
+        for(var i =1;i<24;i++){
+            bb.push(i*10);
+        }
+        console.info(bb);
+        return bb;
+    }
+
+    $(function(){
+        var options ={
+            //图标区
+            chart:{
+              renderTo: 'container',//呈现区域
+              type:'line'
+              //inverted: true
+            },
+            //标题
+            title:{
+                text:"我是标题"
+            },
+            //数据提示框
+            tooltip:{
+                enabled:true
+            },
+            //图例选项
+            leglend:{
+
+            },
+            xAxis:{
+                categories:getX(),
+                labels:{
+                    rotation: 90
+                }
+            },
+            yAxis:{
+                min:0,
+                //categories:["www","odoo","ssss"],//getX(),
+                labels:{
+                    align:'left'
+                },
+                title:{
+                    align:'middle',
+                    text:' ',
+                    style:{
+                        color:'red',
+                        fontSize:'5px'
+                    }
+                    //allowDecimals:false//不要小数设置
+                },
+                lineWidth:2,
+                //tickWidth:10,//刻度宽
+                tickColor:'#F7F8FC',
+                tickLength:30,
+                tickInterval: 50,//等分
+                max:400,
+                gridLineWidth: 0
+                //max:31
+            },
+            series:[{
+                name:"GGG",
+                type:'pie',
+                data:getZ(),
+                color: '#ddd',
+                events:{
+                    click:function(event){
+                        alert("点击事件被触发");
+                    }
+                }
+                },{
+                name:"线",
+                data:getY(),
+                color:'#6F0A1C'
+            }],
+            labels:{
+                items:[{
+                    //标签
+                    html:'<p class="wenBen" style="fill:#ddd;font-size: 14px;">ahahhahaha</p>',
+                    style:{
+                        //标签位置
+                        left:'50px',
+                        top:'50px'
+                    }
+                }]
+            },
+            //绘图 具体的某一个点
+            plotOptions:{
+                series:{
+                    //点 标记
+                    marker:{
+                        enabled:false,
+                        lineColor:'#F93B08',
+                        fillColor:'#719FC3',
+                        lineWidth:0.1
+                    },
+                    cursor: 'pointer',
+                    events: {
+                        click: function(event) {
+                            alert(this.name +' clicked\n');
+                        }
+                    }
+                }
+            },
+            //版权
+            /*credits:{
+                //enabled:false // 禁用版权信息
+                text:'第一版@deppon.com',               // 显示的文字
+                href:'www.deppon.com',   // 链接地址
+                position:{                          // 位置设置
+                    align: 'left',
+                    x: 500,
+                    verticalAlign: 'bottom',
+                    y: -50
+                },
+                style: {                            // 样式设置
+                    cursor: 'pointer',
+                    color: 'red',
+                    fontSize: '10px'
+                }
+            },*/
+            exporting:{
+                enabled:false
+            }
+        };
+        var chart = new Highcharts.Chart(options);
+    });
+</script>
+
+</html>
